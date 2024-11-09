@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add a New Joke</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <h1>Add a New Joke</h1>
+
+  <form action="/jokebook/joke/new" method="post">
+    <label for="category">Category:</label>
+    <input type="text" id="category" name="category" required>
+
+    <label for="setup">Setup:</label>
+    <input type="text" id="setup" name="setup" required>
+
+    <label for="delivery">Delivery:</label>
+    <input type="text" id="delivery" name="delivery" required>
+
+    <button type="submit">Add Joke</button>
+  </form>
+
+  <a href="/">Back to Home</a>
+</body>
+</html>

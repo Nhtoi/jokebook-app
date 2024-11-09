@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jokebook</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <h1>Welcome to Jokebook</h1>
+
+  <section>
+    <h2>Random Joke</h2>
+    <p><strong><%= randomJoke.setup %></strong> - <%= randomJoke.delivery %></p>
+  </section>
+
+  <nav>
+    <a href="/jokebook/categories">View All Categories</a> |
+    <a href="/jokebook/joke/new">Add a New Joke</a>
+  </nav>
+</body>
+</html>

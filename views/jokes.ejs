@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jokes in <%= category %></title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <h1>Jokes in <%= category %> Category</h1>
+
+  <% if (jokes.length > 0) { %>
+    <ul>
+      <% jokes.forEach(joke => { %>
+        <li><strong><%= joke.setup %></strong> - <%= joke.delivery %></li>
+      <% }) %>
+    </ul>
+  <% } else { %>
+    <p>No jokes available in this category.</p>
+  <% } %>
+
+  <form action="/jokebook/joke" method="get">
+    <label for="category">Search Category:</label>
+    <input type="text" id="category" name="category">
+    <button type="submit">Search</button>
+  </form>
+
+  <a href="/jokebook/categories">Back to Categories</a>
+</body>
+</html>
