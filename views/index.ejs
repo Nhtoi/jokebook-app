@@ -14,9 +14,15 @@
     <p><strong><%= randomJoke.setup %></strong> - <%= randomJoke.delivery %></p>
   </section>
 
+  <form action="/jokebook/joke" method="get">
+    <label for="category">Search Category:</label>
+    <input type="text" id="category" name="category">
+    <button type="submit">Search</button>
+  </form>
+  
   <nav>
     <a href="/jokebook/categories">View All Categories</a> |
-    <a href="/jokebook/joke/new">Add a New Joke</a>
+    <a href="/jokebook/joke/add/new">Add a New Joke</a>
   </nav>
 </body>
 </html>

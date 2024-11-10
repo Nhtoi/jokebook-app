@@ -45,19 +45,28 @@ function getCategoryID(category, callback) {
   });
 }
 
-
-exports.addNewJoke = (category, setup, delivery, callback) => {
-  getCategoryID(category, (err, categoryId) => {
+function addNewJoke(category, setup, delivery, callback) {
+  // Retrieve category_id using the category name
+  getCategoryID(category, (err, category_id) => {
     if (err) return callback(err);
 
     const sql = `INSERT INTO Jokes (setup, delivery, category_id) VALUES (?, ?, ?)`;
-    db.run(sql, [setup, delivery, categoryId], (err) => {
+    db.run(sql, [setup, delivery, category_id], (err) => {
       if (err) return callback(err);
       callback(null); 
     });
   });
-};
+}
+
+function getCategoryID(category, callback) {
+  const sql = 'SELECT category_id FROM Categories WHERE name = ?';
+  db.get(sql, [category], (err, row) => {
+    if (err) return callback(err);
+    if (!row) return callback(new Error('Category not found'));
+    callback(null, row.category_id);
+  });
+}
 
 
+module.exports = { getJokesByCategory, getRandomJoke, addNewJoke, getCategoryID };
 
-module.exports = { getJokesByCategory, getRandomJoke };

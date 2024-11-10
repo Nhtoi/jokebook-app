@@ -17,25 +17,24 @@ exports.getJokesByCategory = (req, res) => {
 exports.addNewJoke = (req, res) => {
   const { category, setup, delivery } = req.body;
 
-
   if (!category || !setup || !delivery) {
-    return res.status(400).json({ error: 'Missing required fields: category, setup, and delivery' });
+    return res.status(400).json({ error: "Missing required fields: category, setup, and delivery" });
   }
 
+  // Add the new joke to the database
   jokeModel.addNewJoke(category, setup, delivery, (err) => {
-    if (err) {
-      if (err.message === 'Category not found') {
-        return res.status(404).json({ error: 'Specified category does not exist' });
-      }
-      return res.status(500).json({ error: 'Error adding joke' });
-    }
+    if (err) return res.status(500).send('Error adding new joke');
 
-    
-    jokeModel.getJokesByCategory(category, 10, (err, jokes) => {
-      if (err) {
-        return res.status(500).json({ error: 'Error retrieving updated jokes' });
-      }
-      res.json(jokes); 
+    // Retrieve the updated list of jokes for the category
+    jokeModel.getCategoryID(category, (err, categoryId) => {
+      if (err) return res.status(500).send('Error retrieving category ID');
+
+      jokeModel.getJokesByCategory(categoryId, 10, (err, jokes) => {
+        if (err) return res.status(500).send('Error retrieving updated jokes');
+        
+        // Render the updated jokes in the EJS template
+        res.render('jokes', { jokes, category });
+      });
     });
   });
 };
