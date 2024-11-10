@@ -1,18 +1,19 @@
 const jokeModel = require('../models/jokeModel');
 
 exports.getJokesByCategory = (req, res) => {
-  const categoryId = parseInt(req.params.category_id, 10); 
-  const limit = req.query.limit || 5;  
+  const categoryName = req.query.category;
+  const limit = req.query.limit || 5;
 
-  jokeModel.getJokesByCategory(categoryId, limit, (err, jokes) => {
-    if (err) {
-      return res.status(500).send(err.message); 
-    }
-    
-    const category = categoryId === 1 ? 'funnyJoke' : 'lameJoke'; 
-    res.render('jokes', { jokes, category });  
+  jokeModel.getCategoryID(categoryName, (err, categoryId) => {
+    if (err) return res.status(500).send(err.message);
+
+    jokeModel.getJokesByCategory(categoryId, limit, (err, jokes) => {
+      if (err) return res.status(500).send(err.message);
+      res.render('jokes', { jokes, category: categoryName });
+    });
   });
 };
+
 
 exports.addNewJoke = (req, res) => {
   const { category, setup, delivery } = req.body;

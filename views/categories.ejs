@@ -10,7 +10,7 @@
   <h1>Joke Categories</h1>
   <ul>
     <% categories.forEach(category => { %>
-      <li><a href="/jokebook/joke/<%= category.category_id %>"><%= category.name %></a></li>
+      <li><a href="/jokebook/joke?category=<%= category.name %>"><%= category.name %></a></li>
     <% }) %>
   </ul>
   <a href="/">Back to Home</a>
