@@ -6,13 +6,12 @@ const jokeModel = require('./models/jokeModel');
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('public'));
 app.use('/jokebook', categoryRoutes);
 app.use('/jokebook', jokeRoutes);
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
-
+app.use(express.static(__dirname + '/public'));
 app.get('/', (req, res) => {
     jokeModel.getRandomJoke((err, randomJoke) => {
       if (err) return res.status(500).send('Error retrieving random joke');
